@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,8 +16,7 @@ mongoose.connect('mongodb://localhost:27017/sih_traffic_db')
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("MongoDB connection error:", err));
 
-const genAI = new GoogleGenerativeAI("Hi");
-
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // --- 1. OPTIMIZATION ENGINE ROUTE ---
 app.post('/api/optimize', async (req, res) => {
   const { nodes, fleet_size } = req.body;
